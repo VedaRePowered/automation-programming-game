@@ -6,7 +6,7 @@ int main(void) {
 	while (!WindowShouldClose()) {
 		BeginDrawing();
 		ClearBackground(BLACK);
-		DrawText("I'm gonna clone your repo ;)", 100, 100, 20, RED);
+		DrawText("I'm gonna clone your repo ;)", 100, 100, 40, RED);
 		EndDrawing();
 	}
 	CloseWindow();
