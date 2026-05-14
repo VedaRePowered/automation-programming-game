@@ -1,0 +1,16 @@
+BasedOnStyle: Chromium
+
+AlignConsecutiveMacros: true
+PointerAlignment: Right
+
+AlignAfterOpenBracket: BlockIndent
+IncludeBlocks: Regroup
+AllowShortLoopsOnASingleLine: true
+
+BinPackArguments: false
+BinPackParameters: false
+
+UseTab: Always
+ContinuationIndentWidth: 3
+IndentWidth: 3
+TabWidth: 3
