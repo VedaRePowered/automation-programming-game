@@ -17,19 +17,21 @@
                      # Dependencies
                      raylib
                   ];
+                  buildTools = with pkgs; [
+                     cmake
+                     ninja
+                  ];
                }
          ))
       );
    in {
-      devShells = forAllSystems ({ system, pkgs, libs }: {
+      devShells = forAllSystems ({ system, pkgs, libs, buildTools }: {
          automation-programming-game = pkgs.clangStdenv.mkDerivation {
             name = "automation-programming-game";
 
             nativeBuildInputs = with pkgs; [
-               gnumake
                clang-tools
-               bear
-            ];
+            ] ++ buildTools;
             buildInputs = libs;
 
             shellHook = ''
@@ -38,14 +40,13 @@
          };
          default = self.devShells.${system}.automation-programming-game;
       });
-      checks = forAllSystems ({ system, pkgs, libs }: {
+      checks = forAllSystems ({ system, pkgs, libs, buildTools }: {
          format = pkgs.clangStdenv.mkDerivation {
             name = "automation-programming-game-format";
 
             nativeBuildInputs = with pkgs; [
-               gnumake
                clang-tools
-            ];
+            ] ++ buildTools;
 
             src = ./.;
             buildPhase = ''
@@ -59,9 +60,8 @@
             name = "automation-programming-game-lint";
 
             nativeBuildInputs = with pkgs; [
-               gnumake
                clang-tools
-            ];
+            ] ++ buildTools;
 
             src = ./.;
             buildPhase = ''
@@ -72,14 +72,12 @@
             '';
          };
       });
-      packages = forAllSystems ({ system, pkgs, libs }: {
+      packages = forAllSystems ({ system, pkgs, libs, buildTools }: {
          automation-programming-game = pkgs.clangStdenv.mkDerivation {
             name = "automation-programming-game";
             version = "0.1.0";
 
-            nativeBuildInputs = with pkgs; [
-               gnumake
-            ];
+            nativeBuildInputs = buildTools;
             buildInputs = libs;
 
             CPATH = pkgs.lib.makeSearchPathOutput "dev" "include" (libs ++ [ pkgs.glibc ]);
